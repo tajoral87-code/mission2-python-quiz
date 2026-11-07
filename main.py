@@ -6,7 +6,11 @@ while True:
     print("4. 점수 확인")
     print("5. 종료")
 
-    menu = int(input("메뉴를 선택하세요: "))
+    try:
+        menu = int(input("메뉴를 선택하세요: ").strip())
+    except ValueError:
+        print("숫자 1~5를 입력하세요.")
+        continue
 
     if menu == 1:
         print("퀴즈 풀기를 선택했습니다.")
