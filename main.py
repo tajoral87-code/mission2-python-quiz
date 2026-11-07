@@ -13,6 +13,21 @@ game.add_quiz(Quiz(
     ["str", "float", "int", "print"], 3
 ))
 
+game.add_quiz(Quiz(
+    "Python에서 문자열을 나타내는 자료형은?",
+    ["int", "float", "str", "bool"], 3
+))
+
+game.add_quiz(Quiz(
+    "Python에서 반복문을 만드는 키워드는?",
+    ["if", "for", "def", "return"], 2
+))
+
+game.add_quiz(Quiz(
+    "Python에서 리스트에 항목을 추가하는 메서드는?",
+    ["append", "remove", "sort", "clear"], 1
+))
+
 while True:
     print("===== Python 퀴즈 게임 =====")
     print("1. 퀴즈 풀기")
