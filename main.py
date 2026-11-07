@@ -1,3 +1,18 @@
+from quiz import Quiz
+from game import QuizGame
+
+game = QuizGame()
+
+game.add_quiz(Quiz(
+    "Python에서 출력하는 함수는?",
+    ["input", "print", "int", "type"], 2
+))
+
+game.add_quiz(Quiz(
+    "Python에서 정수로 변환하는 함수는?",
+    ["str", "float", "int", "print"], 3
+))
+
 while True:
     print("===== Python 퀴즈 게임 =====")
     print("1. 퀴즈 풀기")
@@ -13,11 +28,11 @@ while True:
         continue
 
     if menu == 1:
-        print("퀴즈 풀기를 선택했습니다.")
+        game.play()
     elif menu == 2:
-        print("퀴즈 추가를 선택했습니다.")
+        print("퀴즈 추가 기능은 준비 중입니다.")
     elif menu == 3:
-        print("퀴즈 목록을 선택했습니다.")
+        game.list_quizzes()
     elif menu == 4:
         print("점수 확인을 선택했습니다.")
     elif menu == 5:
