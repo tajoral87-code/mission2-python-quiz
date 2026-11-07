@@ -45,7 +45,26 @@ while True:
     if menu == 1:
         game.play()
     elif menu == 2:
-        print("퀴즈 추가 기능은 준비 중입니다.")
+        question = input("문제를 입력하세요: ").strip()
+
+        choices = []
+        for number in range(1, 5):
+            choice = input(f"{number}번 선택지: ").strip()
+            choices.append(choice)
+
+        try:
+            answer = int(input("정답 번호(1~4): ").strip())
+        except ValueError:
+            print("정답은 숫자로 입력해야 합니다.")
+            continue
+
+        if not question or any(not choice for choice in choices):
+            print("문제와 선택지는 비워둘 수 없습니다.")
+        elif answer not in range(1, 5):
+            print("정답 번호는 1~4여야 합니다.")
+        else:
+            game.add_quiz(Quiz(question, choices, answer))
+            print("새로운 퀴즈가 등록되었습니다!")
     elif menu == 3:
         game.list_quizzes()
     elif menu == 4:
