@@ -1,0 +1,75 @@
+{
+    "best_score": 7,
+    "quizzes": [
+        {
+            "question": "Python에서 출력하는 함수는?",
+            "choices": [
+                "input",
+                "print",
+                "int",
+                "type"
+            ],
+            "answer": 2
+        },
+        {
+            "question": "Python에서 정수로 변환하는 함수는?",
+            "choices": [
+                "str",
+                "float",
+                "int",
+                "print"
+            ],
+            "answer": 3
+        },
+        {
+            "question": "Python에서 문자열을 나타내는 자료형은?",
+            "choices": [
+                "int",
+                "float",
+                "str",
+                "bool"
+            ],
+            "answer": 3
+        },
+        {
+            "question": "Python에서 반복문을 만드는 키워드는?",
+            "choices": [
+                "if",
+                "for",
+                "def",
+                "return"
+            ],
+            "answer": 2
+        },
+        {
+            "question": "Python에서 리스트에 항목을 추가하는 메서드는?",
+            "choices": [
+                "append",
+                "remove",
+                "sort",
+                "clear"
+            ],
+            "answer": 1
+        },
+        {
+            "question": "대한민국의 수도는?",
+            "choices": [
+                "부산",
+                "서울",
+                "대전",
+                "광주"
+            ],
+            "answer": 2
+        },
+        {
+            "question": "내포신도시가 있는 곳은?",
+            "choices": [
+                "서울",
+                "부산",
+                "전북",
+                "충남"
+            ],
+            "answer": 4
+        }
+    ]
+}

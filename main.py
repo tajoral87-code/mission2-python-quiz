@@ -28,6 +28,8 @@ game.add_quiz(Quiz(
     ["append", "remove", "sort", "clear"], 1
 ))
 
+game.load()
+
 while True:
     print("===== Python 퀴즈 게임 =====")
     print("1. 퀴즈 풀기")
@@ -64,11 +66,12 @@ while True:
             print("정답 번호는 1~4여야 합니다.")
         else:
             game.add_quiz(Quiz(question, choices, answer))
+            game.save()
             print("새로운 퀴즈가 등록되었습니다!")
     elif menu == 3:
         game.list_quizzes()
     elif menu == 4:
-        print("점수 확인을 선택했습니다.")
+        print(f"역대 최고 점수: {game.best_score}점")
     elif menu == 5:
         print("게임을 종료합니다.")
         break
