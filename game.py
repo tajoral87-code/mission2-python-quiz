@@ -20,11 +20,17 @@ class QuizGame:
         for quiz in self.quizzes:
             quiz.show()
 
-            try:
-                user_answer = int(input("정답 번호(1~4): ").strip())
-            except ValueError:
-                print("숫자를 입력해야 합니다.")
-                continue
+            while True:
+                try:
+                    user_answer = int(input("정답 번호(1~4): ").strip())
+
+                    if 1 <= user_answer <= 4:
+                        break
+
+                    print("1~4 사이의 번호를 입력하세요.")
+
+                except ValueError:
+                    print("숫자 1~4를 입력하세요.")
 
             if quiz.check_answer(user_answer):
                 print("정답입니다!")
@@ -33,6 +39,7 @@ class QuizGame:
                 print("오답입니다.")
 
         print(f"최종 점수: {score}/{len(self.quizzes)}")
+
         if score > self.best_score:
             self.best_score = score
             print("새로운 최고 점수입니다!")
