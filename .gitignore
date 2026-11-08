@@ -3,3 +3,4 @@ __pycache__/
 .venv/
 .vscode/
 python-3.14.10-amd64.exe
+state.backup.json

@@ -40,34 +40,44 @@ while True:
 
     try:
         menu = int(input("메뉴를 선택하세요: ").strip())
+
     except ValueError:
         print("숫자 1~5를 입력하세요.")
         continue
 
+    except (KeyboardInterrupt, EOFError):
+        print("\n입력이 중단되어 게임을 종료합니다.")
+        break
+
     if menu == 1:
         game.play()
     elif menu == 2:
-        question = input("문제를 입력하세요: ").strip()
-
-        choices = []
-        for number in range(1, 5):
-            choice = input(f"{number}번 선택지: ").strip()
-            choices.append(choice)
-
         try:
-            answer = int(input("정답 번호(1~4): ").strip())
-        except ValueError:
-            print("정답은 숫자로 입력해야 합니다.")
-            continue
+            question = input("문제를 입력하세요: ").strip()
 
-        if not question or any(not choice for choice in choices):
-            print("문제와 선택지는 비워둘 수 없습니다.")
-        elif answer not in range(1, 5):
-            print("정답 번호는 1~4여야 합니다.")
-        else:
-            game.add_quiz(Quiz(question, choices, answer))
-            game.save()
-            print("새로운 퀴즈가 등록되었습니다!")
+            choices = []
+            for number in range(1, 5):
+                choice = input(f"{number}번 선택지: ").strip()
+                choices.append(choice)
+
+            answer = int(input("정답 번호(1~4): ").strip())
+
+            if not question or any(not choice for choice in choices):
+                print("문제와 선택지는 비워둘 수 없습니다.")
+
+            elif answer not in range(1, 5):
+                print("정답 번호는 1~4여야 합니다.")
+
+            else:
+                game.add_quiz(Quiz(question, choices, answer))
+                game.save()
+                print("새로운 퀴즈가 등록되었습니다!")
+
+        except ValueError:
+            print("정답은 숫자 1~4로 입력하세요.")
+
+        except (KeyboardInterrupt, EOFError):
+            print("\n퀴즈 추가를 취소하고 메뉴로 돌아갑니다.")
     elif menu == 3:
         game.list_quizzes()
     elif menu == 4:
