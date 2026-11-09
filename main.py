@@ -53,28 +53,40 @@ while True:
         game.play()
     elif menu == 2:
         try:
-            question = input("문제를 입력하세요: ").strip()
+            # 문제 입력
+            while True:
+                question = input("문제를 입력하세요: ").strip()
+                if question:
+                    break
+                print("문제는 비워둘 수 없습니다.")
 
+            # 선택지 4개 입력
             choices = []
             for number in range(1, 5):
-                choice = input(f"{number}번 선택지: ").strip()
-                choices.append(choice)
+                while True:
+                    choice = input(f"{number}번 선택지: ").strip()
+                    if choice:
+                        choices.append(choice)
+                        break
+                    print("선택지는 비워둘 수 없습니다.")
 
-            answer = int(input("정답 번호(1~4): ").strip())
+            # 정답 번호 입력
+            while True:
+                try:
+                    answer = int(input("정답 번호(1~4): ").strip())
 
-            if not question or any(not choice for choice in choices):
-                print("문제와 선택지는 비워둘 수 없습니다.")
+                    if 1 <= answer <= 4:
+                        break
 
-            elif answer not in range(1, 5):
-                print("정답 번호는 1~4여야 합니다.")
+                    print("정답 번호는 1~4여야 합니다.")
 
-            else:
-                game.add_quiz(Quiz(question, choices, answer))
-                game.save()
-                print("새로운 퀴즈가 등록되었습니다!")
+                except ValueError:
+                    print("정답은 숫자 1~4로 입력하세요.")
 
-        except ValueError:
-            print("정답은 숫자 1~4로 입력하세요.")
+            # 모든 입력이 정상일 때 저장
+            game.add_quiz(Quiz(question, choices, answer))
+            game.save()
+            print("새로운 퀴즈가 등록되었습니다!")
 
         except (KeyboardInterrupt, EOFError):
             print("\n퀴즈 추가를 취소하고 메뉴로 돌아갑니다.")

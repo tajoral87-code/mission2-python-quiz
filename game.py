@@ -15,6 +15,10 @@ class QuizGame:
             print(f"{number}. {quiz.question}")
 
     def play(self):
+        if not self.quizzes:
+            print("등록된 퀴즈가 없습니다.")
+            return
+        
         score = 0
 
         for quiz in self.quizzes:
@@ -28,6 +32,9 @@ class QuizGame:
                         break
 
                     print("1~4 사이의 번호를 입력하세요.")
+
+                except ValueError:
+                    print("숫자 1~4를 입력하세요.")
 
                 except (KeyboardInterrupt, EOFError):
                     print("\n퀴즈 풀이를 중단하고 메뉴로 돌아갑니다.")
@@ -59,8 +66,12 @@ class QuizGame:
                 "answer": quiz.answer
             })
 
-        with open("state.json", "w", encoding="utf-8") as file:
-            json.dump(data, file, ensure_ascii=False, indent=4)
+        try:
+            with open("state.json", "w", encoding="utf-8") as file:
+                json.dump(data, file, ensure_ascii=False, indent=4)
+
+        except OSError as error:
+            print(f"데이터 저장에 실패했습니다: {error}")
 
     def load(self):
         try:
