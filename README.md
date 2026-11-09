@@ -148,6 +148,32 @@ mission2-python-quiz/
 
 ![입력 중단 예외 처리](screenshots/07_input_exception_code.png)
 
+
+### 프로그램 실제 실행 화면
+
+아래 이미지는 Python 퀴즈 게임을 PowerShell에서 직접 실행하고 캡처한 원본 화면입니다.
+
+**1. 퀴즈 풀이 및 정답 확인**
+
+![퀴즈 풀이 실행 화면](screenshots/09_quiz_play.png)
+
+**2. 새로운 퀴즈 추가**
+
+![퀴즈 추가 실행 화면](screenshots/10_quiz_add.png)
+
+**3. 퀴즈 목록 확인 — 총 8문제**
+
+![퀴즈 목록 실행 화면](screenshots/11_quiz_list.png)
+
+**4. 최고 점수 확인**
+
+![최고 점수 실행 화면](screenshots/12_best_score.png)
+
+**5. Git 커밋 및 브랜치 병합 기록**
+
+![Git 커밋 그래프](screenshots/13_git_history.png)
+
+
 ### 터미널 실행 기록을 이미지로 재구성한 자료
 
 아래 자료는 **실제 터미널을 캡처한 스크린샷이 아닙니다.** 개발자가 대화에 붙여 넣은 터미널 출력 텍스트를 읽기 쉽게 이미지로 옮긴 **재구성 기록**입니다. 원본 실행 화면 캡처가 필수인 제출 기준에서는 대체 자료로 인정되지 않을 수 있습니다.
