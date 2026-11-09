@@ -11,6 +11,10 @@ class QuizGame:
         self.quizzes.append(quiz)
 
     def list_quizzes(self):
+        if not self.quizzes:
+            print("등록된 퀴즈가 없습니다.")
+            return
+
         for number, quiz in enumerate(self.quizzes, start=1):
             print(f"{number}. {quiz.question}")
 
