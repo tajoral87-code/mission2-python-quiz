@@ -1,4 +1,5 @@
 import json
+import random
 from quiz import Quiz
 
 
@@ -25,7 +26,10 @@ class QuizGame:
         
         score = 0
 
-        for quiz in self.quizzes:
+        quiz_list = self.quizzes.copy()
+        random.shuffle(quiz_list)
+        
+        for quiz in quiz_list:
             quiz.show()
 
             while True:
