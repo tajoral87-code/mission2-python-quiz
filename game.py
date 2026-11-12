@@ -7,6 +7,7 @@ class QuizGame:
     def __init__(self):
         self.quizzes = []
         self.best_score = 0
+        self.score_history = []
 
     def add_quiz(self, quiz):
         self.quizzes.append(quiz)
@@ -18,6 +19,21 @@ class QuizGame:
 
         for number, quiz in enumerate(self.quizzes, start=1):
             print(f"{number}. {quiz.question}")
+
+    def show_score_history(self):
+        if not self.score_history:
+            print("아직 점수 기록이 없습니다.")
+            return
+
+        print("===== 점수 히스토리 =====")
+
+        for number, record in enumerate(self.score_history, start=1):
+            print(
+                f"{number}회차: "
+                f"{record['total']}문제 중 "
+                f"{record['correct']}개 정답 / "
+                f"{record['score']}점"
+            )
 
     def delete_quiz(self):
         if not self.quizzes:
@@ -124,14 +140,22 @@ class QuizGame:
         print(f"정답 개수: {correct_count}/{len(quiz_list)}")
         print(f"최종 점수: {score}/{len(quiz_list) * 2}")
 
+        self.score_history.append({
+            "total": len(quiz_list),
+            "correct": correct_count,
+            "score": score
+        })
+
         if correct_count > self.best_score:
             self.best_score = correct_count
             print("새로운 최고 점수입니다!")
-            self.save()
+
+        self.save()
 
     def save(self):
         data = {
             "best_score": self.best_score,
+            "score_history": self.score_history,
             "quizzes": []
         }
 
@@ -158,9 +182,11 @@ class QuizGame:
             if isinstance(data, list):
                 quiz_data = data
                 best_score = 0
+                score_history = []
             elif isinstance(data, dict):
                 quiz_data = data["quizzes"]
                 best_score = data.get("best_score", 0)
+                score_history = data.get("score_history", [])
             else:
                 raise ValueError("잘못된 JSON 구조")
 
@@ -199,7 +225,23 @@ class QuizGame:
                 ):
                     self.add_quiz(quiz)
 
+            if not isinstance(score_history, list):
+                raise ValueError("점수 기록 데이터 오류")
+
+            for record in score_history:
+                if not (
+                    isinstance(record, dict)
+                    and type(record.get("total")) is int
+                    and type(record.get("correct")) is int
+                    and type(record.get("score")) is int
+                    and record["total"] >= 1
+                    and 0 <= record["correct"] <= record["total"]
+                    and 0 <= record["score"] <= record["total"] * 2
+                ):
+                    raise ValueError("점수 기록 항목 오류")
+
             self.best_score = best_score
+            self.score_history = score_history
             return True
 
         except (OSError, ValueError, TypeError, KeyError, IndexError):

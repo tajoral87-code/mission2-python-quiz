@@ -37,12 +37,13 @@ while True:
     print("4. 점수 확인")
     print("5. 종료")
     print("6. 퀴즈 삭제")
+    print("7. 점수 히스토리")
 
     try:
         menu = int(input("메뉴를 선택하세요: ").strip())
 
     except ValueError:
-        print("숫자 1~6을 입력하세요.")
+        print("숫자 1~7을 입력하세요.")
         continue
 
     except (KeyboardInterrupt, EOFError):
@@ -99,6 +100,8 @@ while True:
         print(f"역대 최고 점수: {game.best_score}점")
     elif menu == 6:
         game.delete_quiz()
+    elif menu == 7:
+        game.show_score_history()
     elif menu == 5:
         print("게임을 종료합니다.")
         break
