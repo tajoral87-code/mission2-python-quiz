@@ -26,8 +26,26 @@ class QuizGame:
         
         score = 0
 
+        print(f"현재 등록된 문제: {len(self.quizzes)}개")
+        while True:
+            try:
+                question_count = int(input(f"몇 문제를 풀겠습니까? (1~{len(self.quizzes)}): "))
+            
+                if 1 <= question_count <= len(self.quizzes):
+                    break 
+
+                print(f"1~{len(self.quizzes)} 사이의 숫자를 입력하세요.") 
+
+            except ValueError:
+                print("숫자를 입력하세요.")  
+
+            except (KeyboardInterrupt, EOFError):
+                print("\n문제 수 선택을 중단하고 메뉴로 돌아갑니다.")
+                return      
+
         quiz_list = self.quizzes.copy()
         random.shuffle(quiz_list)
+        quiz_list = quiz_list[:question_count]
         
         for quiz in quiz_list:
             quiz.show()
@@ -54,7 +72,7 @@ class QuizGame:
             else:
                 print("오답입니다.")
 
-        print(f"최종 점수: {score}/{len(self.quizzes)}")
+        print(f"최종 점수: {score}/{len(quiz_list)}")
 
         if score > self.best_score:
             self.best_score = score
