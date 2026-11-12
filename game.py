@@ -25,6 +25,7 @@ class QuizGame:
             return
         
         score = 0
+        correct_count = 0
 
         print(f"현재 등록된 문제: {len(self.quizzes)}개")
         while True:
@@ -50,6 +51,28 @@ class QuizGame:
         for quiz in quiz_list:
             quiz.show()
 
+            hint_used = False
+
+            if quiz.hint:
+                print("이 문제에는 힌트가 있습니다.")
+
+                while True:
+                    try:
+                        hint_choice = input("힌트를 보시겠습니까? (y/n): ").strip().lower()
+
+                        if hint_choice in ("y", "n"):
+                            break
+
+                        print("y 또는 n을 입력하세요.")
+
+                    except (KeyboardInterrupt, EOFError):
+                        print("\n퀴즈 풀이를 중단하고 메뉴로 돌아갑니다.")
+                        return    
+
+                if hint_choice == "y":
+                    print(f"힌트: {quiz.hint}")
+                    hint_used = True
+
             while True:
                 try:
                     user_answer = int(input("정답 번호(1~4): ").strip())
@@ -68,14 +91,16 @@ class QuizGame:
 
             if quiz.check_answer(user_answer):
                 print("정답입니다!")
-                score += 1
+                correct_count += 1
+                score += 1 if hint_used else 2
             else:
                 print("오답입니다.")
 
-        print(f"최종 점수: {score}/{len(quiz_list)}")
+        print(f"정답 개수: {correct_count}/{len(quiz_list)}")
+        print(f"최종 점수: {score}/{len(quiz_list) * 2}")
 
-        if score > self.best_score:
-            self.best_score = score
+        if correct_count > self.best_score:
+            self.best_score = correct_count
             print("새로운 최고 점수입니다!")
             self.save()
 
@@ -89,7 +114,8 @@ class QuizGame:
             data["quizzes"].append({
                 "question": quiz.question,
                 "choices": quiz.choices,
-                "answer": quiz.answer
+                "answer": quiz.answer,
+                "hint": quiz.hint 
             })
 
         try:
@@ -125,6 +151,7 @@ class QuizGame:
                 question = item["question"]
                 choices = item["choices"]
                 answer = item["answer"]
+                hint = item.get("hint", "")
 
                 if not (
                     isinstance(question, str)
@@ -134,10 +161,11 @@ class QuizGame:
                     and all(isinstance(c, str) and c.strip() for c in choices)
                     and type(answer) is int
                     and 1 <= answer <= 4
+                    and isinstance(hint, str)
                 ):
                     raise ValueError("퀴즈 데이터 오류")
-
-                loaded_quizzes.append(Quiz(question, choices, answer))
+              
+                loaded_quizzes.append(Quiz(question, choices, answer, hint))
 
             for quiz in loaded_quizzes:
                 if not any(

@@ -83,8 +83,11 @@ while True:
                 except ValueError:
                     print("정답은 숫자 1~4로 입력하세요.")
 
+            # 힌트 입력 (선택 사항)
+            hint = input("힌트를 입력하세요(없으면 Enter): ").strip()
+
             # 모든 입력이 정상일 때 저장
-            game.add_quiz(Quiz(question, choices, answer))
+            game.add_quiz(Quiz(question, choices, answer, hint))
             game.save()
             print("새로운 퀴즈가 등록되었습니다!")
 
