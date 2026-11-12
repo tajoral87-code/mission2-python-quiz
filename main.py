@@ -3,32 +3,31 @@ from game import QuizGame
 
 game = QuizGame()
 
-game.add_quiz(Quiz(
-    "Python에서 출력하는 함수는?",
-    ["input", "print", "int", "type"], 2
-))
+if not game.load():
+    game.add_quiz(Quiz(
+        "Python에서 출력하는 함수는?",
+        ["input", "print", "int", "type"], 2
+    ))
 
-game.add_quiz(Quiz(
-    "Python에서 정수로 변환하는 함수는?",
-    ["str", "float", "int", "print"], 3
-))
+    game.add_quiz(Quiz(
+        "Python에서 정수로 변환하는 함수는?",
+        ["str", "float", "int", "print"], 3
+    ))
 
-game.add_quiz(Quiz(
-    "Python에서 문자열을 나타내는 자료형은?",
-    ["int", "float", "str", "bool"], 3
-))
+    game.add_quiz(Quiz(
+        "Python에서 문자열을 나타내는 자료형은?",
+        ["int", "float", "str", "bool"], 3
+    ))
 
-game.add_quiz(Quiz(
-    "Python에서 반복문을 만드는 키워드는?",
-    ["if", "for", "def", "return"], 2
-))
+    game.add_quiz(Quiz(
+        "Python에서 반복문을 만드는 키워드는?",
+        ["if", "for", "def", "return"], 2
+    ))
 
-game.add_quiz(Quiz(
-    "Python에서 리스트에 항목을 추가하는 메서드는?",
-    ["append", "remove", "sort", "clear"], 1
-))
-
-game.load()
+    game.add_quiz(Quiz(
+        "Python에서 리스트에 항목을 추가하는 메서드는?",
+        ["append", "remove", "sort", "clear"], 1
+    ))
 
 while True:
     print("===== Python 퀴즈 게임 =====")
@@ -37,12 +36,13 @@ while True:
     print("3. 퀴즈 목록")
     print("4. 점수 확인")
     print("5. 종료")
+    print("6. 퀴즈 삭제")
 
     try:
         menu = int(input("메뉴를 선택하세요: ").strip())
 
     except ValueError:
-        print("숫자 1~5를 입력하세요.")
+        print("숫자 1~6을 입력하세요.")
         continue
 
     except (KeyboardInterrupt, EOFError):
@@ -97,6 +97,8 @@ while True:
         game.list_quizzes()
     elif menu == 4:
         print(f"역대 최고 점수: {game.best_score}점")
+    elif menu == 6:
+        game.delete_quiz()
     elif menu == 5:
         print("게임을 종료합니다.")
         break

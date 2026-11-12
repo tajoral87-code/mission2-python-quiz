@@ -19,10 +19,35 @@ class QuizGame:
         for number, quiz in enumerate(self.quizzes, start=1):
             print(f"{number}. {quiz.question}")
 
+    def delete_quiz(self):
+        if not self.quizzes:
+            print("삭제할 퀴즈가 없습니다.")
+            return
+        self.list_quizzes()
+
+        try:
+            number = int(input("삭제할 문제 번호: ")) 
+        except ValueError:
+            print("숫자를 입력하세요.")
+            return
+        except (KeyboardInterrupt, EOFError):
+            print("\n삭제를 취소했습니다.")
+            return
+
+        if not 1 <= number <= len(self.quizzes):
+            print("존재하지 않는 문제 번호입니다.")
+            return
+            
+        deleted_quiz = self.quizzes.pop(number - 1)
+        self.save()
+        print(f"'{deleted_quiz.question}' 문제가 삭제되었습니다.")
+
     def play(self):
         if not self.quizzes:
             print("등록된 퀴즈가 없습니다.")
             return
+        
+        
         
         score = 0
         correct_count = 0
@@ -175,6 +200,8 @@ class QuizGame:
                     self.add_quiz(quiz)
 
             self.best_score = best_score
+            return True
 
         except (OSError, ValueError, TypeError, KeyError, IndexError):
             print("저장 파일을 읽을 수 없어 기본 퀴즈로 시작합니다.")
+            return False
